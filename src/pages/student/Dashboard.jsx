@@ -237,7 +237,7 @@ const StudentDashboard = () => {
                   <span className="text-[10px] md:text-xs font-black uppercase tracking-widest">Mulai Quiz</span>
                </button>
                <button
-                onClick={() => navigate('/student/playground')}
+                onClick={() => navigate(profile?.disability_type === 'tunanetra' ? '/student/playground' : '/student/tanya-ai')}
                 className={`p-6 md:p-8 rounded-[2rem] md:rounded-[2.5rem] flex flex-col items-center justify-center gap-3 transition-all active:scale-95 shadow-lg ${
                   isBlind ? 'bg-indigo-600 text-white' : 'bg-white text-slate-700 border border-slate-100 hover:border-indigo-200'
                 }`}

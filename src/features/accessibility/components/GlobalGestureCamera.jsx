@@ -115,7 +115,7 @@ const GlobalGestureCamera = () => {
       else if (totalFingers === 2) targetPath = '/student/tasks';
       else if (totalFingers === 3) targetPath = '/student/modules';
       else if (totalFingers === 4) targetPath = '/student/collaboration';
-      else if (totalFingers === 5) targetPath = '/student/playground';
+      else if (totalFingers === 5) targetPath = '/student/tanya-ai';
       else if (totalFingers === 7) targetPath = '/profile';
 
       if (targetPath) {

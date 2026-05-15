@@ -13,6 +13,7 @@ import Profile from './pages/profile/index';
 import StudentDashboard from './pages/student/Dashboard';
 import StudentModules from './pages/student/Modules';
 import StudentPlayground from './pages/student/Playground';
+import StudentTanyaAI from './pages/student/TanyaAI';
 import StudentTasks from './pages/student/Tasks';
 import StudentLiveCaptions from './pages/student/LiveCaptions';
 import StudentTaskDetail from './pages/student/TaskDetail';
@@ -76,6 +77,7 @@ function AppContent() {
           <Route path="/student/live-captions" element={<StudentLiveCaptions />} />
           <Route path="/student/modules" element={<StudentModules />} />
           <Route path="/student/playground" element={<StudentPlayground />} />
+          <Route path="/student/tanya-ai" element={<StudentTanyaAI />} />
           <Route path="/student/tasks" element={<StudentTasks />} />
           <Route path="/student/task/:id" element={<StudentTaskDetail />} />
           <Route path="/student/quiz/:id" element={<StudentQuiz />} />

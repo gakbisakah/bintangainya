@@ -33,20 +33,28 @@ export const useAI = () => {
       }
 
       const nama = profileData?.full_name?.split(' ')[0] || "Teman";
-      const kelas = profileData?.class_level || 4;
+      const kelas = parseInt(profileData?.class_level || "4", 10);
 
       // Ambil API Key dari environment, gunakan fallback 'christian' agar tetap terhubung
       const apiKey = import.meta.env.VITE_CUSTOM_AI_TUTOR_KEY || "christian";
 
+      // Filter history agar valid dan tidak kosong
+      const formattedHistory = (options.history || [])
+        .filter(h => h.content && h.content.trim() !== '')
+        .map(h => ({
+          role: h.role === 'ai' ? 'assistant' : (h.role || 'user'),
+          content: h.content
+        }));
+
       const { data, error: invokeError } = await supabase.functions.invoke('ai-tutor', {
         body: {
-          message: query,
+          message: query.trim(),
           student_id: studentId,
           nama: nama,
           kelas: kelas,
           disability_type: profileData?.disability_type || "umum",
-          history: options.history || [], // Kirim riwayat percakapan untuk konteks
-          weak_topics: weakTopics,
+          history: formattedHistory,
+          weak_topics: Array.isArray(weakTopics) ? weakTopics : [],
         },
         headers: {
           'x-api-key': apiKey
