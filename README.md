@@ -1,63 +1,116 @@
 # BintangAi 🌟
 
-BintangAi adalah platform pembelajaran berbasis kecerdasan buatan (AI) yang dirancang khusus untuk membantu siswa dengan kebutuhan khusus, termasuk **Tunanetra**, **Tunarungu**, dan **Tunawicara**. Proyek ini menggunakan teknologi AI mutakhir untuk menciptakan pengalaman belajar yang inklusif dan interaktif.
+**BintangAi** adalah platform pembelajaran inklusif berbasis Kecerdasan Buatan (AI) yang dirancang khusus untuk mendukung siswa dengan disabilitas (**Tunanetra, Tunarungu, dan Tunawicara**). Dengan menggabungkan teknologi pemrosesan bahasa alami (NLP), pengenalan suara, dan deteksi gestur, BintangAi menghapus batasan dalam belajar.
 
-## 🚀 Teknologi Utama
-- **Frontend**: React (Vite)
-- **Styling**: Tailwind CSS & Framer Motion (untuk animasi profesional)
-- **Backend/Database**: Supabase (Database, Auth, Edge Functions)
-- **AI Models**: Integrasi dengan berbagai model AI melalui Supabase Edge Functions.
+---
 
-## 📁 Struktur Folder Proyek
+## 🛠️ Arsitektur Teknologi
+
+### Frontend
+- **Framework**: React 18 dengan Vite sebagai build tool.
+- **State Management**: Zustand untuk manajemen state yang ringan dan efisien.
+- **Styling**: Tailwind CSS untuk desain antarmuka yang modern dan responsif.
+- **Animation**: Framer Motion untuk transisi dan interaksi yang halus.
+- **Routing**: React Router DOM v6.
+
+### Backend (BintangAi Core)
+- **Platform**: Supabase (Backend as a Service).
+- **Edge Functions**: Deno-based serverless functions untuk logika AI.
+- **Database**: PostgreSQL dengan Row Level Security (RLS) yang ketat.
+- **Storage**: Supabase Storage untuk penyimpanan modul pembelajaran (PDF).
+- **Realtime**: PostgreSQL CDC untuk fitur kolaborasi grup belajar.
+
+---
+
+## 📁 Struktur Proyek (Comprehensive)
+
+### 🖥️ Frontend Structure (`/src`)
 ```text
-bintangainya/
-├── backend/                # Logika server-side dan database migrations
-├── public/                 # Aset statis (gambar, ikon, dll)
-├── src/
-│   ├── components/         # Komponen UI global (Layout, Feedback, dll)
-│   ├── features/           # Modul fitur utama
-│   │   ├── accessibility/  # Kontrol gestur, panduan suara, dan subtitle
-│   │   ├── ai-tutor/       # Integrasi chatbot AI (Kak Bintang & Nay)
-│   │   └── auth/           # Logika autentikasi dan manajemen user
-│   ├── hooks/              # Custom React hooks
-│   ├── lib/                # Konfigurasi library eksternal (Supabase, dll)
-│   ├── pages/              # Halaman aplikasi berdasarkan peran
-│   │   ├── auth/           # Login & Register
-│   │   ├── landing/        # Halaman depan (Landing Page)
-│   │   ├── parent/         # Dashboard Orang Tua
-│   │   ├── profile/        # Manajemen profil user
-│   │   ├── student/        # Fitur Siswa (Tanya AI, Quiz, Materi)
-│   │   └── teacher/        # Dashboard Guru (Upload Modul, Buat Tugas)
-│   ├── styles/             # File CSS global
-│   ├── utils/              # Fungsi utilitas pembantu
-│   ├── App.jsx             # Router dan struktur utama aplikasi
-│   └── main.jsx            # Entry point aplikasi
-├── .env                    # Variabel lingkungan (API Keys)
-├── package.json            # Dependensi dan scripts proyek
-├── tailwind.config.js      # Konfigurasi Tailwind CSS
-└── vercel.json             # Konfigurasi deployment ke Vercel
+src/
+├── components/             # Komponen UI Reusable
+│   ├── feedback/           # Toast, Notification, Confetti
+│   ├── layout/             # Sidebar, Navbar, AppLayout
+│   └── common/             # Button, Input, Card khusus
+├── features/               # Modul Fitur (Domain Driven)
+│   ├── accessibility/      # Hooks & Components khusus aksesibilitas
+│   │   ├── hooks/          # useGesture, useVoice, useAudioRecorder
+│   │   └── components/     # BlindAIAssistant, Subtitles, GestureCamera
+│   ├── ai-tutor/           # Otak AI Kak Bintang
+│   │   ├── api/            # Wrapper API Supabase Functions
+│   │   └── hooks/          # useAI, useAIPrompt
+│   └── auth/               # Sistem Keamanan & User Session
+├── pages/                  # Views berdasarkan User Role
+│   ├── student/            # Dashboard, Tanya AI (Chat), QuizKu, Modules
+│   ├── teacher/            # Management Panel (Upload, Task Creation)
+│   └── parent/             # Monitoring Dashboard
+├── lib/                    # SDK Configuration (Supabase Client)
+└── styles/                 # Tailwind & Global CSS
 ```
 
-## ✨ Fitur Unggulan
-- **Tanya AI (Kak Bintang)**: Chatbot interaktif untuk siswa Tunarungu & Tunawicara dengan desain modern dan responsif.
-- **Asisten Nay**: Panduan navigasi suara khusus untuk siswa Tunanetra.
-- **Mata Pintar AI**: Konversi suara ke teks secara langsung untuk membantu siswa Tunarungu.
-- **Gesture Control**: Navigasi aplikasi menggunakan gerakan tangan melalui kamera.
-- **Library Materi**: Akses modul PDF dengan bantuan asisten AI yang dapat menjawab pertanyaan seputar materi tersebut.
+### ⚙️ Backend Structure (`/backend` / Supabase Cloud)
+```text
+backend/ (Logic & Database Schema)
+├── supabase/
+│   ├── functions/          # Edge Functions (Deno Runtime)
+│   │   ├── ai-tutor/       # Main Brain (Integrasi LLM & Prompt Engineering)
+│   │   ├── materi-ai/      # RAG (Retrieval Augmented Generation) untuk PDF
+│   │   ├── smart-voice/    # Speech-to-Intent & Voice Interaction
+│   │   └── transcribe/     # Real-time Voice Transcription
+│   ├── migrations/         # Database Schema & Version Control
+│   └── seed.sql            # Data awal untuk pengembangan
+├── database_schema/        # Dokumentasi Relasi Tabel
+│   ├── profiles            # Data User (Role & Tipe Disabilitas)
+│   ├── modules             # Repository Materi (PDF Metadata)
+│   ├── assignments         # Quiz & Tugas dari Guru
+│   └── submissions         # Jawaban & Progress Siswa
+└── security/               # RLS (Row Level Security) Policies
+```
 
-## 🛠️ Instalasi
-1. Clone repositori:
-   ```bash
-   git clone https://github.com/username/bintangainya.git
-   ```
-2. Instal dependensi:
-   ```bash
-   npm install
-   ```
-3. Jalankan di mode pengembangan:
-   ```bash
-   npm run dev
-   ```
+---
 
-## 🌐 Deployment
-Proyek ini dikonfigurasi untuk dideploy ke [Vercel](https://vercel.com). Pastikan semua variabel lingkungan (`.env`) telah diatur di dashboard Vercel Anda.
+## 🌟 Fitur Utama Berbasis Peran
+
+### 1. Siswa Tunawicara & Tunarungu
+- **Tanya AI (Chat Mode)**: Antarmuka chat teks full-screen yang responsif dengan animasi profesional.
+- **Mata Pintar AI**: Transkripsi suara guru secara real-time menjadi teks subtitle.
+- **Gesture Navigation**: Mengontrol aplikasi menggunakan 1-10 jari melalui kamera (Hand Tracking).
+
+### 2. Siswa Tunanetra
+- **Asisten Nay**: Navigasi berbasis suara penuh. Pengguna cukup menekan Spasi dan berbicara.
+- **Audio Guide**: Panduan suara otomatis yang menjelaskan struktur halaman saat ini.
+- **Voice-to-Action**: Pindah halaman atau membuka materi cukup dengan perintah suara.
+
+---
+
+## 🚀 Instalasi & Pengembangan
+
+1.  **Clone & Install**:
+    ```bash
+    git clone https://github.com/bintangainya/bintangainya.git
+    cd bintangainya
+    npm install
+    ```
+
+2.  **Environment Variables**:
+    Buat file `.env` dan masukkan kredensial Supabase Anda:
+    ```env
+    VITE_SUPABASE_URL=your_url
+    VITE_SUPABASE_ANON_KEY=your_key
+    VITE_CUSTOM_AI_TUTOR_KEY=christian
+    ```
+
+3.  **Run Application**:
+    ```bash
+    npm run dev
+    ```
+
+---
+
+## 🔒 Keamanan & Performa
+- **Optimasi Vite**: Code-splitting otomatis untuk pemuatan halaman yang instan.
+- **Supabase RLS**: Memastikan data siswa hanya dapat diakses oleh guru atau orang tua yang bersangkutan.
+- **Edge Runtime**: Logika AI dijalankan di lokasi server terdekat dari pengguna untuk latensi rendah.
+
+---
+
+© 2024 **BintangAi Team**. Built with ❤️ for inclusive education.
