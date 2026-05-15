@@ -1,0 +1,38 @@
+# Supabase configuration file
+project_id = "rnahdxukfyzifvsbhndu"
+
+[functions.ai-tutor]
+verify_jwt = false
+
+[functions.summarize]
+verify_jwt = false
+
+[functions.generate-quiz]
+verify_jwt = false
+
+[functions.simplify]
+verify_jwt = false
+
+[functions.ask-tutor]
+verify_jwt = false
+
+[functions.weak-topic]
+verify_jwt = false
+
+[functions.get-insight]
+verify_jwt = false
+
+[functions.weak-topics]
+verify_jwt = false
+
+[functions.upload-pdf]
+verify_jwt = false
+
+[functions.get-parent-report]
+verify_jwt = false
+
+[functions.generate-parent-report-ai]
+verify_jwt = false
+
+[functions.generate-questions]
+verify_jwt = false
