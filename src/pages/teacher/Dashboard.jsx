@@ -128,7 +128,7 @@ const TeacherDashboard = () => {
 
       const { data: subs, error: subsError } = await supabase
         .from('submissions')
-        .select('*, profiles!inner(full_name, xp, class_code), assignments!inner(title, teacher_id)')
+        .select('*, profiles!inner(id, full_name, xp, class_code), assignments!inner(id, title, teacher_id)')
         .eq('assignments.teacher_id', profile.id)
         .eq('profiles.class_code', profile?.class_code)
         .order('submitted_at', { ascending: false });
@@ -236,6 +236,7 @@ const TeacherDashboard = () => {
   };
 
   const fetchAssignmentDetails = async (assignment) => {
+    if (!assignment?.id) return;
     setSelectedAssignment(assignment);
     setSubLoading(true);
     try {
